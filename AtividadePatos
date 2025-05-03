@@ -1,0 +1,107 @@
+using System;
+using System.Collections.Generic;
+
+namespace AtividadePatos
+{
+    public interface IFlyable
+    {
+        void Fly();
+    }
+
+    public interface IQuackable
+    {
+        void Quack();
+    }
+
+    public abstract class Duck
+    {
+        public void Swim()
+        {
+            Console.WriteLine("nadando...");
+        }
+
+        public abstract void Display();
+    }
+
+    public class RedHeadDuck : Duck, IFlyable, IQuackable
+    {
+        public override void Display()
+        {
+            Console.WriteLine("pato de cabeça vermelha");
+        }
+
+        public void Fly()
+        {
+            Console.WriteLine("voar...");
+        }
+
+        public void Quack()
+        {
+            Console.WriteLine("quaaaa!!!!...");
+        }
+    }
+
+    public class MallardDuck : Duck, IFlyable, IQuackable
+    {
+        public override void Display()
+        {
+            Console.WriteLine("sou um pato selvagem");
+        }
+
+        public void Fly()
+        {
+            Console.WriteLine("voando como um pato selvagem...");
+        }
+
+        public void Quack()
+        {
+            Console.WriteLine("quack! quack!");
+        }
+    }
+
+    public class RubberDuck : Duck, IQuackable
+    {
+        public override void Display()
+        {
+            Console.WriteLine("sou um pato de borracha");
+        }
+
+        public void Quack()
+        {
+            Console.WriteLine("squeak");
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<Duck> ducks = new List<Duck>
+            {
+                new RedHeadDuck(),
+                new MallardDuck(),
+                new RubberDuck()
+            };
+
+            foreach (Duck duck in ducks)
+            {
+                Console.WriteLine("------");
+                duck.Display();
+                duck.Swim();
+
+                if (duck is IFlyable flyableDuck)
+                {
+                    flyableDuck.Fly();
+                }
+
+                if (duck is IQuackable quackableDuck)
+                {
+                    quackableDuck.Quack();
+                }
+            }
+
+            Console.WriteLine("\nsair");
+            Console.ReadKey();
+        }
+    }
+}
